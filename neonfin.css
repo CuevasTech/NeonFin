@@ -1,0 +1,2414 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap");
+
+/* NeonFin — a neon & glass theme for Jellyfin 12
+   https://github.com/CuevasTech/NeonFin · MIT License */
+
+/* Customization: override any of these after the @import line, inside :root { }. */
+:root {
+  /* Colors as "R G B", without commas. */
+  --nf-blue: 4 157 217;     /* main accent: primary buttons, active link */
+  --nf-cyan: 46 200 255;    /* neon highlight: glows and hovers */
+  --nf-indigo: 91 79 224;   /* middle of the gradient */
+  --nf-violet: 180 79 208;  /* second accent */
+  --nf-purple: 88 34 89;    /* deep glow at the bottom of the page */
+  --nf-night: 5 6 11;       /* page background */
+
+  /* Texts drawn by the theme on the desktop detail page. */
+  --nf-label-play: "Play";
+  --nf-label-trailer: "Trailer";
+  --nf-label-tags: "Tags";
+
+  /* Your logo: --nf-logo: url("https://example.com/logo.png");
+     Without it, the top bar shows your server's name as a neon sign. */
+}
+
+@property --nf-logo {
+  syntax: "<image> | none";
+  inherits: true;
+  initial-value: none;
+}
+
+:root,
+:root[data-theme] {
+  --nf-noche: rgb(var(--nf-night));
+  --nf-fondo: #080a12;
+  --nf-superficie: #0e1120;
+  --nf-superficie-2: #151a2c;
+  --nf-cristal: rgba(10, 12, 22, 0.62);
+  --nf-linea: rgba(160, 180, 255, 0.10);
+  --nf-linea-fuerte: rgba(160, 180, 255, 0.18);
+  --nf-texto: #eef1f8;
+  --nf-texto-2: #a6aec4;
+  --nf-texto-3: #6f7891;
+  --nf-azul: rgb(var(--nf-blue));
+  --nf-azul-neon: rgb(var(--nf-cyan));
+  --nf-morado: rgb(var(--nf-purple));
+  --nf-violeta: rgb(var(--nf-violet));
+  --nf-degradado: linear-gradient(120deg, rgb(var(--nf-blue)) 0%, rgb(var(--nf-indigo)) 55%, rgb(var(--nf-violet)) 100%);
+  --nf-degradado-suave: linear-gradient(120deg, rgb(var(--nf-blue) / 0.22), rgb(var(--nf-violet) / 0.22));
+  --nf-sombra: 0 14px 34px -18px rgba(0, 0, 0, 0.95);
+  --nf-radio: 14px;
+  --nf-radio-grande: 22px;
+  --nf-letra: "Inter", "Noto Sans", system-ui, sans-serif;
+  --nf-letra-titulos: "Outfit", "Inter", "Noto Sans", system-ui, sans-serif;
+  --nf-curva: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --nf-suave: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --nf-muelle: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  --jf-palette-primary-main: rgb(var(--nf-blue));
+  --jf-palette-primary-light: rgb(var(--nf-cyan));
+  --jf-palette-primary-dark: #037aa9;
+  --jf-palette-primary-contrastText: #fff;
+  --jf-palette-primary-mainChannel: var(--nf-blue);
+  --jf-palette-primary-lightChannel: var(--nf-cyan);
+  --jf-palette-primary-darkChannel: 3 122 169;
+  --jf-palette-primary-contrastTextChannel: 255 255 255;
+  --jf-palette-secondary-main: rgb(var(--nf-violet));
+  --jf-palette-secondary-light: #cf7fe3;
+  --jf-palette-secondary-dark: rgb(var(--nf-purple));
+  --jf-palette-secondary-contrastText: #fff;
+  --jf-palette-secondary-mainChannel: var(--nf-violet);
+  --jf-palette-background-default: rgb(var(--nf-night));
+  --jf-palette-background-defaultChannel: var(--nf-night);
+  --jf-palette-background-paper: #10131f;
+  --jf-palette-background-paperChannel: 16 19 31;
+  --jf-palette-AppBar-defaultBg: rgba(10, 12, 22, 0.62);
+  --jf-palette-AppBar-darkBg: rgba(10, 12, 22, 0.62);
+  --jf-palette-action-hover: rgb(var(--nf-cyan) / 0.08);
+  --jf-palette-action-selected: rgb(var(--nf-cyan) / 0.16);
+  --jf-palette-text-primary: #eef1f8;
+  --jf-palette-text-secondary: #a6aec4;
+  --jf-shape-borderRadius: 10px;
+  --jf-font-button: 600 0.875rem/1.75 "Inter", "Noto Sans", sans-serif;
+  --jf-font-body1: 400 1rem/1.5 "Inter", "Noto Sans", sans-serif;
+  --jf-font-body2: 400 0.875rem/1.43 "Inter", "Noto Sans", sans-serif;
+  --jf-font-h1: 700 1.9rem/1.15 "Outfit", "Noto Sans", sans-serif;
+  --jf-font-h2: 600 1.5rem/1.2 "Outfit", "Noto Sans", sans-serif;
+  --jf-font-h3: 600 1.2rem/1.2 "Outfit", "Noto Sans", sans-serif;
+  --jf-font-h6: 600 1.25rem/1.6 "Outfit", "Noto Sans", sans-serif;
+  --jf-font-subtitle1: 500 1rem/1.75 "Inter", "Noto Sans", sans-serif;
+  --jf-font-subtitle2: 500 0.875rem/1.57 "Inter", "Noto Sans", sans-serif;
+  --jf-font-caption: 400 0.75rem/1.66 "Inter", "Noto Sans", sans-serif;
+}
+
+html {
+  scrollbar-color: #2a3150 transparent;
+  scrollbar-width: thin;
+}
+
+body,
+.emby-button,
+.emby-input,
+.emby-select,
+.emby-textarea,
+.MuiTypography-root,
+.MuiButtonBase-root {
+  font-family: var(--nf-letra);
+}
+
+body {
+  color: var(--nf-texto);
+  background: var(--nf-noche);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(var(--nf-blue) / 0.45);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgb(var(--nf-blue) / 0.65), rgb(var(--nf-violet) / 0.65));
+  border: 3px solid transparent;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+
+.backgroundContainer {
+  background:
+    radial-gradient(1100px 620px at 8% -12%, rgb(var(--nf-blue) / 0.22), transparent 62%),
+    radial-gradient(900px 620px at 100% -4%, rgb(var(--nf-violet) / 0.18), transparent 60%),
+    radial-gradient(1200px 700px at 50% 118%, rgb(var(--nf-purple) / 0.48), transparent 62%),
+    var(--nf-noche) !important;
+}
+
+.backgroundContainer.withBackdrop {
+  background:
+    linear-gradient(180deg, rgb(var(--nf-night) / 0.55) 0%, rgb(var(--nf-night) / 0.82) 45%, rgb(var(--nf-night) / 0.96) 80%),
+    radial-gradient(900px 520px at 10% 0%, rgb(var(--nf-blue) / 0.14), transparent 65%),
+    radial-gradient(900px 520px at 95% 10%, rgb(var(--nf-violet) / 0.12), transparent 65%) !important;
+}
+
+.backdropImage {
+  filter: saturate(1.12) contrast(1.04);
+}
+
+.MuiAppBar-root {
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child {
+  min-height: 76px !important;
+}
+
+/* Jellyfin switches the bar from .MuiAppBar-colorTransparent to .MuiAppBar-colorDefault
+   as soon as the page scrolls. The bar only shrinks with transforms: if its real
+   height changed, the content below would jump. */
+.MuiAppBar-root {
+  --nf-sube: 0px;
+  --nf-mengua: 1;
+
+  --nf-cola: 64px;
+  --nf-fundido: linear-gradient(180deg, #000 0, #000 calc(100% - 120px), rgba(0, 0, 0, 0.93) calc(100% - 100px), rgba(0, 0, 0, 0.8) calc(100% - 80px), rgba(0, 0, 0, 0.6) calc(100% - 60px), rgba(0, 0, 0, 0.38) calc(100% - 40px), rgba(0, 0, 0, 0.17) calc(100% - 20px), rgba(0, 0, 0, 0.05) calc(100% - 7px), transparent 100%);
+  overflow-x: clip;
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault {
+  --nf-sube: -10px;
+  --nf-mengua: 0.86;
+}
+
+/* The glass fades out through a mask, not a gradient, so the blur fades too;
+   with only a couple of stops its edge shows as a line. */
+.MuiAppBar-root::before,
+.MuiAppBar-root::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--nf-cola) * -1);
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image: var(--nf-fundido);
+  mask-image: var(--nf-fundido);
+  transition: opacity 0.8s var(--nf-suave), transform 0.9s var(--nf-suave);
+}
+
+.MuiAppBar-root:has(> .MuiToolbar-root:nth-child(2)) {
+  --nf-cola: 40px;
+}
+
+.MuiAppBar-root::before {
+  background: linear-gradient(180deg, rgba(7, 9, 17, 0.9) 0%, rgba(8, 10, 19, 0.74) 55%, rgba(8, 10, 19, 0.5) 100%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+}
+
+/* Wider than the screen so its edges never show while it drifts. */
+.MuiAppBar-root::after {
+  left: -12%;
+  right: -12%;
+  background:
+    radial-gradient(28% 120% at 16% 0%, rgb(var(--nf-blue) / 0.3), transparent 72%),
+    radial-gradient(24% 110% at 52% 0%, rgb(var(--nf-indigo) / 0.16), transparent 72%),
+    radial-gradient(28% 120% at 86% 0%, rgb(var(--nf-violet) / 0.28), transparent 72%);
+}
+
+@media (hover: hover) {
+  .MuiAppBar-root::after {
+    animation: nf-aurora-barra 22s ease-in-out infinite alternate;
+  }
+}
+
+body:has(#loginPage:not(.hide)) .MuiAppBar-root::before,
+body:has(#loginPage:not(.hide)) .MuiAppBar-root::after {
+  display: none;
+}
+
+.MuiAppBar-root > .MuiToolbar-root {
+  transform: translateY(var(--nf-sube));
+  transition: transform 0.75s var(--nf-suave);
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:nth-child(2) {
+  transform: translateY(-16px);
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root,
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiIconButton-root {
+  transform: scale(var(--nf-mengua));
+  transform-origin: right center;
+  transition: transform 0.75s var(--nf-suave), background-color 0.7s var(--nf-suave);
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiIconButton-root {
+  transform-origin: left center;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root:has(.MuiAvatar-root) {
+  transform-origin: center;
+}
+
+.MuiAppBar-root .MuiToolbar-root > .MuiStack-root > a:first-child {
+  margin-right: 14px;
+  padding: 4px 8px !important;
+  border-radius: 10px;
+  color: #fff !important;
+  font-family: var(--nf-letra-titulos) !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-transform: none !important;
+  white-space: nowrap;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.9), 0 0 8px rgb(var(--nf-cyan) / 0.9), 0 0 22px rgb(var(--nf-violet) / 0.65);
+  animation: nf-neon-encendido 1.9s ease-out 0.2s 1 both, nf-neon-parpadeo 13s linear 3s infinite;
+  transform: scale(var(--nf-mengua));
+  transform-origin: left center;
+  transition: transform 0.75s var(--nf-suave) !important;
+}
+
+.MuiAppBar-root .MuiToolbar-root > .MuiStack-root > a:first-child > .MuiButton-startIcon {
+  margin-right: 10px;
+  filter: drop-shadow(0 0 6px rgb(var(--nf-cyan) / 0.8));
+}
+
+.MuiAppBar-root .MuiToolbar-root > .MuiStack-root > a:first-child:hover {
+  background-color: transparent !important;
+}
+
+/* Logo mode. A style query on the registered --nf-logo; browsers without style
+   queries (Firefox) keep showing the server name. */
+@container not style(--nf-logo: none) {
+  .MuiAppBar-root .MuiToolbar-root > .MuiStack-root > a:first-child {
+    font-size: 0 !important;
+    color: transparent !important;
+    text-shadow: none;
+    width: 108px;
+    min-width: 108px;
+    height: 40px;
+    padding: 0 !important;
+    background: var(--nf-logo) center / contain no-repeat !important;
+    filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 6px rgb(var(--nf-cyan) / 0.9)) drop-shadow(0 0 16px rgb(var(--nf-violet) / 0.6));
+  }
+
+  .MuiAppBar-root .MuiToolbar-root > .MuiStack-root > a:first-child > .MuiButton-startIcon {
+    display: none !important;
+  }
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root:not(:has(.MuiAvatar-root)) {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: rgba(12, 14, 26, 0.8);
+  border: 1px solid var(--nf-linea-fuerte);
+  -webkit-backdrop-filter: blur(20px) saturate(115%);
+  backdrop-filter: blur(20px) saturate(115%);
+  box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root:has(.MuiAvatar-root) {
+  margin-left: 16px;
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:first-child > .MuiBox-root:not(:has(.MuiAvatar-root)),
+.MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:first-child > .MuiIconButton-root {
+  background-color: rgba(255, 255, 255, 0.055);
+}
+
+/* MUI's ripple left a light rectangle while a button was held down. */
+.MuiAppBar-root .MuiTouchRipple-root {
+  display: none !important;
+}
+
+.MuiAppBar-root .MuiStack-root > a:not(:first-child),
+.MuiAppBar-root .MuiToolbar-root .MuiIconButton-root:not(:has(.MuiAvatar-root)) {
+  position: relative;
+  isolation: isolate;
+  background-color: transparent !important;
+  transition: color 0.45s var(--nf-suave), transform 0.55s var(--nf-suave), padding 0.75s var(--nf-suave), background-color 0.7s var(--nf-suave) !important;
+}
+
+.MuiAppBar-root .MuiStack-root > a:not(:first-child)::before,
+.MuiAppBar-root .MuiToolbar-root .MuiIconButton-root:not(:has(.MuiAvatar-root))::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgb(var(--nf-blue) / 0.34), rgb(var(--nf-indigo) / 0.26) 55%, rgb(var(--nf-violet) / 0.34));
+  opacity: 0;
+  transition: opacity 0.55s var(--nf-suave);
+}
+
+/* Hover effects only with a mouse: on touch screens :hover sticks after a tap. */
+@media (hover: hover) {
+  .MuiAppBar-root .MuiStack-root > a:not(:first-child):hover,
+  .MuiAppBar-root .MuiToolbar-root .MuiIconButton-root:not(:has(.MuiAvatar-root)):hover {
+    color: #fff;
+    background-color: transparent !important;
+  }
+
+  .MuiAppBar-root .MuiStack-root > a:not(:first-child):hover::before,
+  .MuiAppBar-root .MuiToolbar-root .MuiIconButton-root:not(:has(.MuiAvatar-root)):hover::before {
+    opacity: 1;
+  }
+
+  .MuiAppBar-root .MuiStack-root > a:not(:first-child):hover .MuiButton-startIcon,
+  .MuiAppBar-root .MuiToolbar-root .MuiIconButton-root:not(:has(.MuiAvatar-root)):hover .MuiSvgIcon-root {
+    color: var(--nf-azul-neon);
+  }
+
+  .MuiIconButton-root:hover > .MuiAvatar-root {
+    box-shadow: 0 0 0 2px rgb(var(--nf-night) / 0.9), 0 0 0 3.5px rgb(var(--nf-cyan) / 0.9), 0 0 26px rgb(var(--nf-cyan) / 0.55), 0 0 40px rgb(var(--nf-violet) / 0.45);
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root:hover > .MuiButton-endIcon {
+    color: var(--nf-azul-neon);
+    transform: translateY(2px);
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-contained > .MuiButton-root:hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text > .MuiButton-root:hover:not(.Mui-disabled)::before {
+    opacity: 1;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text > .MuiButton-root:hover:not(.Mui-disabled) {
+    color: var(--nf-azul-neon);
+  }
+}
+
+.MuiAppBar-root .MuiStack-root > a:not(:first-child) .MuiButton-startIcon,
+.MuiAppBar-root .MuiToolbar-root .MuiIconButton-root .MuiSvgIcon-root {
+  transition: transform 0.55s var(--nf-muelle), color 0.45s var(--nf-suave);
+}
+
+.MuiAppBar-root .MuiStack-root > a:not(:first-child) {
+  border-radius: 999px !important;
+  padding: 8px 18px !important;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  text-transform: none;
+}
+
+.MuiAppBar-root .MuiToolbar-root .MuiIconButton-root:not(:has(.MuiAvatar-root)) {
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+  border-radius: 50%;
+}
+
+.MuiAvatar-root {
+  background: var(--nf-degradado) !important;
+  box-shadow: 0 0 0 2px rgb(var(--nf-night) / 0.9), 0 0 0 3px rgb(var(--nf-cyan) / 0.45), 0 0 14px rgb(var(--nf-violet) / 0.35);
+  transition: box-shadow 0.55s var(--nf-suave);
+}
+
+.MuiAppBar-root .MuiIconButton-root:has(.MuiAvatar-root):hover {
+  background-color: transparent !important;
+}
+
+/* From 1200 px the menu is centred and its capsule is made of the links themselves:
+   a wrapper with backdrop-filter would become the containing block of the logo,
+   which is absolutely positioned inside it, and the logo would land on the menu. */
+@media (min-width: 1200px) {
+  .MuiAppBar-root > .MuiToolbar-root:first-child:has(> .MuiStack-root > a:first-child) {
+    display: flex !important;
+    align-items: center;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiStack-root {
+    display: contents !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiStack-root > a:first-child {
+    min-width: 230px !important;
+    margin: 0 auto 0 0 !important;
+    justify-content: flex-start;
+    background-position: left center !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiStack-root > a:not(:first-child) {
+    margin: 0 !important;
+    padding: 12px 18px !important;
+    border-radius: 0 !important;
+    background-color: rgba(12, 14, 26, 0.8) !important;
+    border-top: 1px solid var(--nf-linea-fuerte);
+    border-bottom: 1px solid var(--nf-linea-fuerte);
+    -webkit-backdrop-filter: blur(20px) saturate(115%);
+    backdrop-filter: blur(20px) saturate(115%);
+    box-shadow: 0 14px 34px -22px rgba(0, 0, 0, 0.95);
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiStack-root > a:first-child + a {
+    border-left: 1px solid var(--nf-linea-fuerte);
+    border-radius: 999px 0 0 999px !important;
+    padding-left: 24px !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiStack-root > a:last-child {
+    border-right: 1px solid var(--nf-linea-fuerte);
+    border-radius: 0 999px 999px 0 !important;
+    padding-right: 24px !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiStack-root > a:not(:first-child)::before {
+    inset: 5px 4px;
+    border-radius: 999px;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiStack-root + .MuiBox-root {
+    margin-left: auto;
+  }
+
+  /* No backdrop-filter of their own here: each link would blur only its own slice
+     and the seams would show. The glass sheet underneath is continuous. */
+  .MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:first-child > .MuiStack-root > a:not(:first-child) {
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+    background-color: rgba(255, 255, 255, 0.055) !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) {
+  --nf-fila2: 42px;
+  --nf-titulo2: 1.28rem;
+  gap: 10px;
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:nth-child(2) {
+  --nf-fila2: 36px;
+  --nf-titulo2: 1.1rem;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root,
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiStack-root > .MuiButtonGroup-root,
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiStack-root > * > .MuiButtonGroup-root {
+  box-sizing: border-box;
+  height: var(--nf-fila2);
+  border-radius: 999px !important;
+  transition: height 0.75s var(--nf-suave), padding 0.75s var(--nf-suave), background-color 0.7s var(--nf-suave), box-shadow 0.7s var(--nf-suave) !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root,
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiStack-root > .MuiButtonGroup-text {
+  background: rgba(12, 14, 26, 0.8) !important;
+  border: 1px solid var(--nf-linea-fuerte);
+  -webkit-backdrop-filter: blur(20px) saturate(115%);
+  backdrop-filter: blur(20px) saturate(115%);
+  box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root {
+  margin: 0 !important;
+  padding: 0 14px 0 20px !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root > .MuiTypography-root {
+  font-family: var(--nf-letra-titulos) !important;
+  font-size: var(--nf-titulo2) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.005em;
+  line-height: 1.2 !important;
+  transition: font-size 0.75s var(--nf-suave);
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root > .MuiButton-endIcon {
+  margin-left: 6px;
+  color: var(--nf-texto-2);
+  transition: transform 0.55s var(--nf-suave), color 0.45s var(--nf-suave);
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiBox-root {
+  margin: 0 !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiChip-root {
+  height: 26px;
+  border-radius: 999px;
+  background: rgb(var(--nf-cyan) / 0.1) !important;
+  border: 1px solid rgb(var(--nf-cyan) / 0.24);
+  color: var(--nf-azul-neon) !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiChip-label {
+  padding: 0 10px !important;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Below 1200 px Jellyfin gives this group a 4 px vertical margin, which made the
+   bar grow and shrink on scroll and the page jump. */
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiStack-root {
+  gap: 10px;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiStack-root > * {
+  margin: 0 !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-contained {
+  overflow: hidden;
+  background: var(--nf-degradado);
+  box-shadow: 0 12px 28px -14px rgb(var(--nf-blue) / 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-contained > .MuiButton-root {
+  height: 100%;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  transition: background-color 0.45s var(--nf-suave) !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-contained > .MuiButton-root:first-child {
+  padding: 0 16px 0 14px;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-contained > .MuiButton-root + .MuiButton-root {
+  min-width: 46px;
+  padding: 0 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.28) !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text {
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+  overflow: hidden;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text > .MuiButton-root {
+  position: relative;
+  isolation: isolate;
+  min-width: 38px;
+  height: calc(var(--nf-fila2) - 8px);
+  padding: 0 9px;
+  border: none !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  transition: color 0.45s var(--nf-suave), height 0.75s var(--nf-suave) !important;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text > .MuiButton-root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgb(var(--nf-blue) / 0.34), rgb(var(--nf-indigo) / 0.26) 55%, rgb(var(--nf-violet) / 0.34));
+  opacity: 0;
+  transition: opacity 0.55s var(--nf-suave);
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text > .MuiButton-root.Mui-disabled {
+  opacity: 0.32;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiSvgIcon-root {
+  font-size: 1.3rem;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiIconButton-root {
+  border-radius: 50%;
+  background: rgba(12, 14, 26, 0.8);
+  border: 1px solid var(--nf-linea-fuerte);
+  -webkit-backdrop-filter: blur(20px) saturate(115%);
+  backdrop-filter: blur(20px) saturate(115%);
+  box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+/* The Android app (window.NativeShell, never the browser) adds a back button right
+   after the menu button: both share one capsule. */
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiIconButton-root:has(+ .MuiIconButton-root) {
+  border-radius: 999px 0 0 999px;
+  border-right: none;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiIconButton-root + .MuiIconButton-root {
+  border-radius: 0 999px 999px 0;
+  border-left: none;
+  /* Shrinks towards the menu button's left edge so the two stay joined. */
+  transform-origin: -40px center;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiIconButton-root:has(+ .MuiIconButton-root)::before,
+.MuiAppBar-root > .MuiToolbar-root:first-child > .MuiIconButton-root + .MuiIconButton-root::before {
+  inset: 3px;
+  border-radius: 999px;
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:first-child > .MuiIconButton-root {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+@container not style(--nf-logo: none) {
+.MuiAppBar-root > .MuiToolbar-root:first-child:not(:has(> .MuiStack-root > a:first-child))::before {
+  content: "";
+  position: absolute;
+  left: 70px;
+  top: 50%;
+  width: 84px;
+  height: 32px;
+  transform: translateY(-50%) scale(var(--nf-mengua));
+  transform-origin: left center;
+  transition: transform 0.75s var(--nf-suave);
+  background: var(--nf-logo) center / contain no-repeat;
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 6px rgb(var(--nf-cyan) / 0.9)) drop-shadow(0 0 14px rgb(var(--nf-violet) / 0.6));
+  animation: nf-neon-encendido 1.9s ease-out 0.2s 1 both;
+  pointer-events: none;
+}
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:first-child:not(:has(> .MuiStack-root > a:first-child))::before {
+  left: 62px;
+}
+
+.MuiAppBar-root > .MuiToolbar-root:first-child:not(:has(> .MuiStack-root > a:first-child)):has(> .MuiIconButton-root + .MuiIconButton-root)::before {
+  left: 110px;
+  width: clamp(0px, calc(100vw - 330px), 84px);
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:first-child:not(:has(> .MuiStack-root > a:first-child)):has(> .MuiIconButton-root + .MuiIconButton-root)::before {
+  left: 99px;
+}
+
+@media (max-width: 374px) {
+  .MuiAppBar-root > .MuiToolbar-root:first-child:not(:has(> .MuiStack-root > a:first-child)):has(> .MuiIconButton-root + .MuiIconButton-root)::before {
+    display: none;
+  }
+}
+
+.MuiMenu-paper,
+.MuiPopover-paper {
+  background: rgba(14, 17, 32, 0.9) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--nf-linea-fuerte);
+  border-radius: 14px !important;
+  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.95) !important;
+}
+
+.MuiMenuItem-root {
+  border-radius: 8px;
+  margin: 2px 6px;
+}
+
+.MuiMenuItem-root:hover {
+  background: rgb(var(--nf-cyan) / 0.09) !important;
+}
+
+.MuiDrawer-paper {
+  background: rgba(8, 10, 18, 0.94) !important;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--nf-linea) !important;
+}
+
+.MuiButton-contained,
+.MuiButton-containedPrimary {
+  background: var(--nf-degradado) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 24px -10px rgb(var(--nf-blue) / 0.8) !important;
+}
+
+.MuiToggleButton-root.Mui-selected {
+  background: rgb(var(--nf-cyan) / 0.14) !important;
+  color: var(--nf-azul-neon) !important;
+}
+
+.sectionTitle,
+.sectionTitle-cards,
+h1,
+h2,
+h3 {
+  font-family: var(--nf-letra-titulos);
+}
+
+.sectionTitle,
+.sectionTitle-cards {
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  word-spacing: 0.1em;
+  color: var(--nf-texto);
+}
+
+.verticalSection > .sectionTitle-cards::before,
+.verticalSection .sectionTitleTextButton > .sectionTitle::before,
+.verticalSection .sectionTitleContainer > .sectionTitle::before {
+  content: "";
+  display: inline-block;
+  width: 0.26em;
+  height: 0.92em;
+  margin-right: 0.55em;
+  vertical-align: -0.08em;
+  border-radius: 4px;
+  background: var(--nf-degradado);
+}
+
+.sectionTitleTextButton > .material-icons {
+  display: none !important;
+}
+
+.sectionTitleTextButton > .sectionTitle {
+  transition: color 0.5s var(--nf-suave);
+}
+
+.sectionTitleTextButton:hover > .sectionTitle {
+  color: var(--nf-azul-neon);
+}
+
+.cardScalable,
+.cardImageContainer,
+.cardContent,
+.cardOverlayContainer,
+.cardPadder,
+.blurhash-canvas {
+  border-radius: var(--nf-radio) !important;
+}
+
+.cardScalable {
+  overflow: hidden;
+  box-shadow: var(--nf-sombra), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: box-shadow 0.7s var(--nf-suave);
+}
+
+.cardPadder {
+  background-color: var(--nf-superficie) !important;
+}
+
+.cardImageIcon {
+  color: rgba(166, 174, 196, 0.35) !important;
+}
+
+.cardImageContainer {
+  transition: transform 1s var(--nf-suave), filter 0.8s var(--nf-suave);
+}
+
+.cardText {
+  transition: color 0.5s var(--nf-suave), text-shadow 0.5s var(--nf-suave);
+}
+
+/* Above the poster's glow: the poster is positioned and would paint over the text. */
+.cardFooter,
+.cardBox > .cardText {
+  position: relative;
+  z-index: 2;
+}
+
+@media (hover: hover) {
+  .card-hoverable {
+    position: relative;
+  }
+
+  .card-hoverable:hover .cardScalable {
+    box-shadow: 0 26px 50px -26px rgba(0, 0, 0, 0.95), 0 20px 44px -22px rgb(var(--nf-blue) / 0.6), 0 14px 40px -26px rgb(var(--nf-violet) / 0.55);
+  }
+
+  .card-hoverable:hover .cardImageContainer {
+    transform: scale(1.05);
+    filter: blur(1.4px) brightness(0.74) saturate(1.12);
+  }
+
+  .card-hoverable:hover .cardText-first {
+    color: #fff;
+    text-shadow: 0 0 18px rgb(var(--nf-cyan) / 0.55);
+  }
+
+  .card-hoverable[data-type="CollectionFolder"]:hover .cardImageContainer,
+  .card-hoverable[data-type="UserView"]:hover .cardImageContainer {
+    filter: brightness(1.08) saturate(1.1);
+  }
+
+  .card-hoverable[data-type="CollectionFolder"] .cardOverlayContainer::before,
+  .card-hoverable[data-type="UserView"] .cardOverlayContainer::before,
+  .personCard .cardOverlayContainer::before {
+    display: none;
+  }
+
+  .personCard.card-hoverable:hover .cardImageContainer {
+    filter: none;
+    transform: scale(1.04);
+  }
+
+  /* Jellyfin fades the whole overlay with opacity, but an ancestor with opacity < 1
+     cuts off backdrop-filter, so the play button's glass only appeared once the
+     fade had ended. The overlay stays at 1 and its pieces fade in instead. */
+  .cardOverlayContainer {
+    opacity: 1 !important;
+    background: transparent !important;
+  }
+
+  .cardOverlayContainer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, rgb(var(--nf-night) / 0.05) 0%, rgb(var(--nf-night) / 0.5) 100%);
+    opacity: 0;
+    transition: opacity 0.6s var(--nf-suave);
+  }
+
+  .card-hoverable:hover .cardOverlayContainer::before,
+  .card-hoverable:focus-within .cardOverlayContainer::before {
+    opacity: 1;
+  }
+
+  .cardOverlayButton-br {
+    left: 50% !important;
+    right: auto !important;
+    bottom: 0.7em !important;
+    display: flex;
+    align-items: center;
+    gap: 0.1em;
+    padding: 0.18em 0.32em;
+    border-radius: 999px;
+    background: rgba(8, 10, 18, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    backdrop-filter: blur(12px) saturate(140%);
+    box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    transform: translate(-50%, 0.45em);
+    transition: opacity 0.55s var(--nf-suave), transform 0.65s var(--nf-suave);
+  }
+
+  .card-hoverable:hover .cardOverlayButton-br,
+  .card-hoverable:focus-within .cardOverlayButton-br {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition-delay: 0.06s;
+  }
+
+  .cardOverlayButton-br .cardOverlayButton-hover {
+    opacity: 1 !important;
+  }
+
+  .cardOverlayButton-br .cardOverlayButton {
+    margin: 0 !important;
+    padding: 0.32em !important;
+    font-size: 1em;
+  }
+
+  .cardOverlayButton-br .cardOverlayButtonIcon {
+    width: 1.25em !important;
+    height: 1.25em !important;
+    font-size: 1.3em !important;
+    background: transparent !important;
+  }
+
+  .cardOverlayButton-br .MuiSvgIcon-root {
+    font-size: 1.2rem;
+  }
+
+  .cardOverlayButton-br:not(:has(> :nth-child(2))) {
+    left: auto !important;
+    right: 0.5em !important;
+    bottom: 0.5em !important;
+    padding: 0;
+    background: rgba(8, 10, 18, 0.45);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(0.35em);
+  }
+
+  .card-hoverable:hover .cardOverlayButton-br:not(:has(> :nth-child(2))),
+  .card-hoverable:focus-within .cardOverlayButton-br:not(:has(> :nth-child(2))) {
+    transform: none;
+  }
+
+  .cardOverlayButton-br:not(:has(> :nth-child(2))) .cardOverlayButton {
+    padding: 0.22em !important;
+  }
+
+  .cardOverlayButton-br:not(:has(> :nth-child(2))) .cardOverlayButtonIcon {
+    font-size: 1.1em !important;
+  }
+}
+
+.cardOverlayContainer > .cardOverlayFab-primary {
+  width: 3.5em !important;
+  height: 3.5em !important;
+  margin-left: -1.75em !important;
+  margin-top: -1.75em !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.14) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+  color: #fff !important;
+  box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.85), 0 0 28px -4px rgb(var(--nf-cyan) / 0.55) !important;
+  opacity: 0;
+  transform: scale(0.55);
+  transition: transform 0.65s var(--nf-muelle), opacity 0.5s var(--nf-suave), background-color 0.45s var(--nf-suave), box-shadow 0.5s var(--nf-suave), border-color 0.45s var(--nf-suave) !important;
+}
+
+.cardOverlayContainer > .cardOverlayFab-primary .material-icons {
+  font-size: 1.85em;
+  margin-left: 0.08em;
+}
+
+.card-hoverable:hover .cardOverlayContainer > .cardOverlayFab-primary,
+.card-hoverable:focus-within .cardOverlayContainer > .cardOverlayFab-primary {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.08s, 0.08s, 0s, 0s, 0s !important;
+}
+
+.card-hoverable:hover .cardOverlayContainer > .cardOverlayFab-primary:hover {
+  transform: scale(1.12) !important;
+  background-color: rgb(var(--nf-cyan) / 0.32) !important;
+  border-color: #fff !important;
+  box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.85), 0 0 0 6px rgb(var(--nf-cyan) / 0.16), 0 0 40px rgb(var(--nf-cyan) / 0.75) !important;
+}
+
+@media (hover: none) {
+  .cardScalable [data-action="play"],
+  .cardScalable [data-action="resume"] {
+    display: none !important;
+  }
+}
+
+.cardOverlayButton {
+  color: rgba(255, 255, 255, 0.88);
+  border-radius: 50%;
+  transition: color 0.4s var(--nf-suave), background-color 0.45s var(--nf-suave);
+}
+
+.cardOverlayButton:hover {
+  color: #fff;
+  background-color: rgb(var(--nf-cyan) / 0.22) !important;
+}
+
+.cardText {
+  color: var(--nf-texto);
+  font-weight: 500;
+}
+
+.cardText-secondary,
+.cardText.cardText-secondary {
+  color: var(--nf-texto-3);
+  font-weight: 400;
+  font-size: 0.86em;
+}
+
+.card-hoverable:hover .cardText-first {
+  color: #fff;
+}
+
+.cardIndicators {
+  top: 0.6rem !important;
+  left: 0.6rem !important;
+  right: auto !important;
+  gap: 0.3rem;
+  transition: opacity 0.5s var(--nf-suave);
+}
+
+.cardIndicators .indicator + .indicator {
+  margin-left: 0 !important;
+}
+
+.countIndicator,
+.playedIndicator,
+.mediaSourceIndicator,
+.fullSyncIndicator,
+.indicator {
+  box-sizing: border-box;
+  width: auto !important;
+  min-width: 1.6rem;
+  height: 1.6rem !important;
+  padding: 0 0.5rem;
+  border-radius: 999px !important;
+  background: rgba(8, 10, 18, 0.66) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  backdrop-filter: blur(8px) saturate(140%);
+  color: #fff !important;
+  font-family: var(--nf-letra);
+  font-size: 0.74rem !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.85) !important;
+}
+
+.playedIndicator {
+  padding: 0;
+  color: var(--nf-azul-neon) !important;
+}
+
+.playedIndicator .indicatorIcon {
+  font-size: 1.05rem;
+}
+
+@media (hover: hover) {
+  .card-hoverable:hover .cardIndicators {
+    opacity: 0;
+  }
+}
+
+.itemProgressBar {
+  background: rgba(255, 255, 255, 0.13) !important;
+  height: 4px !important;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.itemProgressBarForeground {
+  background: var(--nf-degradado) !important;
+  box-shadow: 0 0 10px rgb(var(--nf-cyan) / 0.85);
+  border-radius: 4px;
+}
+
+.innerCardFooter {
+  background: linear-gradient(180deg, transparent, rgb(var(--nf-night) / 0.6)) !important;
+}
+
+.emby-scrollbuttons-button {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--nf-linea);
+  transition: background-color 0.45s var(--nf-suave), color 0.45s var(--nf-suave), box-shadow 0.45s var(--nf-suave);
+}
+
+.emby-scrollbuttons-button:hover {
+  color: var(--nf-azul-neon);
+  background: rgb(var(--nf-cyan) / 0.1);
+  box-shadow: 0 0 14px rgb(var(--nf-cyan) / 0.35);
+}
+
+.emby-button.raised,
+.raised {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--nf-texto);
+  border: 1px solid var(--nf-linea-fuerte);
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background-color 0.45s var(--nf-suave), box-shadow 0.45s var(--nf-suave), transform 0.45s var(--nf-suave);
+}
+
+.emby-button.raised:hover,
+.raised:hover {
+  background: rgb(var(--nf-cyan) / 0.1);
+  box-shadow: 0 0 0 1px rgb(var(--nf-cyan) / 0.45), 0 0 22px -4px rgb(var(--nf-cyan) / 0.45);
+}
+
+.button-submit,
+.emby-button.button-submit,
+.raised.button-submit,
+.btnSubmit {
+  background: var(--nf-degradado) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 12px 28px -12px rgb(var(--nf-blue) / 0.95), 0 0 24px -6px rgb(var(--nf-violet) / 0.6) !important;
+}
+
+.button-submit:hover,
+.emby-button.button-submit:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.button-link,
+.textActionButton:hover {
+  color: var(--nf-azul-neon);
+}
+
+.emby-input,
+.emby-select,
+.emby-select-withcolor,
+.emby-textarea {
+  background: rgba(255, 255, 255, 0.045) !important;
+  border: 1px solid var(--nf-linea-fuerte) !important;
+  border-radius: 10px !important;
+  color: var(--nf-texto) !important;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.emby-input:focus,
+.emby-select:focus,
+.emby-textarea:focus {
+  border-color: var(--nf-azul-neon) !important;
+  box-shadow: 0 0 0 3px rgb(var(--nf-blue) / 0.22), 0 0 18px -4px rgb(var(--nf-cyan) / 0.55) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+
+.inputLabelFocused,
+.selectLabelFocused,
+.textareaLabelFocused {
+  color: var(--nf-azul-neon) !important;
+}
+
+.checkboxOutline {
+  border-radius: 7px !important;
+  border-color: var(--nf-linea-fuerte) !important;
+}
+
+.emby-checkbox:checked + span + .checkboxOutline {
+  background: var(--nf-degradado) !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 14px rgb(var(--nf-cyan) / 0.5);
+}
+
+.dialog:not(.dialog-fullscreen),
+.actionSheet,
+.formDialog:not(.dialog-fullscreen) {
+  background: rgba(14, 17, 32, 0.94) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--nf-linea-fuerte);
+  border-radius: 18px !important;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.95) !important;
+}
+
+.dialog-fullscreen,
+.formDialogHeader,
+.formDialogFooter {
+  background: var(--nf-fondo) !important;
+}
+
+.actionSheetMenuItem:hover,
+.listItem:hover {
+  background: rgb(var(--nf-cyan) / 0.08) !important;
+}
+
+.actionSheet:not(.actionsheet-fullscreen) .actionSheetContent {
+  padding: 0.4rem !important;
+}
+
+.actionSheetMenuItem {
+  border: none !important;
+  border-radius: 11px !important;
+  transition: background-color 0.4s var(--nf-suave);
+}
+
+.actionSheetMenuItem + .actionSheetMenuItem {
+  margin-top: 2px !important;
+}
+
+.actionsheetListItemBody {
+  padding: 0.62em 1.2em 0.62em 0.4em !important;
+}
+
+.actionsheetMenuItemIcon {
+  margin: 0 0.75em 0 0.6em !important;
+  color: var(--nf-texto-2);
+  transition: color 0.4s var(--nf-suave);
+}
+
+.actionSheetMenuItem:hover .actionsheetMenuItemIcon {
+  color: var(--nf-azul-neon);
+}
+
+.actionsheetDivider {
+  background: rgba(255, 255, 255, 0.06) !important;
+  margin: 0.35em 0.6em !important;
+}
+
+.itemName.infoText,
+.parentName {
+  font-family: var(--nf-letra-titulos);
+}
+
+/* Series and episode names are emby-button links, which bring the body font. */
+.nameContainer .emby-button,
+.parentName .emby-button {
+  font-family: inherit !important;
+  font-weight: inherit !important;
+}
+
+.detailLogo {
+  filter: drop-shadow(0 6px 26px rgba(0, 0, 0, 0.85));
+}
+
+.itemBackdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(var(--nf-night) / 0.2) 0%, rgb(var(--nf-night) / 0) 30%, rgb(var(--nf-night) / 0.35) 72%, var(--nf-noche) 100%);
+}
+
+.tagline {
+  font-family: var(--nf-letra-titulos);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.01em;
+  word-spacing: 0.12em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+}
+
+.overview {
+  color: rgba(238, 241, 248, 0.82);
+  line-height: 1.7;
+}
+
+.selectLabel,
+.trackSelections .selectLabel {
+  color: var(--nf-texto-3);
+}
+
+.trackSelections .selectContainer {
+  align-items: center;
+}
+
+.trackSelections .selectContainer .selectLabel {
+  line-height: 1.3 !important;
+}
+
+.trackSelections .selectContainer .detailTrackSelect {
+  padding: 0.6em 2.9em 0.6em 1em !important;
+  border-radius: 12px !important;
+  font-size: 0.95rem !important;
+  line-height: 1.35;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  cursor: pointer;
+  transition: border-color 0.45s var(--nf-suave), background-color 0.45s var(--nf-suave), box-shadow 0.45s var(--nf-suave);
+}
+
+.trackSelections .selectContainer .detailTrackSelect:hover {
+  border-color: rgb(var(--nf-cyan) / 0.45) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.trackSelections .selectContainer .detailTrackSelect[disabled] {
+  padding-right: 1em !important;
+  border-color: transparent !important;
+  background: transparent !important;
+  opacity: 0.9 !important;
+  cursor: default;
+  text-overflow: ellipsis;
+}
+
+.trackSelections .selectContainer .selectArrowContainer {
+  top: 50% !important;
+  right: 0.85em !important;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+  color: var(--nf-texto-2);
+}
+
+.trackSelections .selectContainer:hover .selectArrowContainer {
+  color: var(--nf-azul-neon);
+}
+
+.trackSelections .selectContainer .selectArrowContainer > div {
+  display: none;
+}
+
+.emby-select option {
+  background: #10131f;
+  color: #eef1f8;
+}
+
+.itemMiscInfo-primary {
+  gap: 0.45rem;
+}
+
+.itemMiscInfo-primary .mediaInfoItem {
+  margin: 0 !important;
+  padding: 0.32em 0.8em;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--nf-linea-fuerte);
+  color: var(--nf-texto) !important;
+  font-size: 0.86rem;
+  line-height: 1.25;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.itemMiscInfo-primary .mediaInfoCriticRating {
+  padding-left: 2.05em !important;
+  background-position: 0.65em center !important;
+  background-size: 1.05em !important;
+}
+
+.itemMiscInfo-primary .mediaInfoOfficialRating {
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  font-weight: 600;
+}
+
+/* The commas between tags are hidden text nodes that still count as flex items:
+   space the chips with margins, not gap. */
+.itemTags:not(.hide),
+.itemExternalLinks:not(.hide) {
+  display: flex !important;
+  flex-wrap: wrap;
+  font-size: 0 !important;
+}
+
+.itemTags::before {
+  content: var(--nf-label-tags);
+  flex-basis: 100%;
+  margin-bottom: 0.45rem;
+  font-family: var(--nf-letra);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nf-texto-3);
+}
+
+.itemTags a,
+.itemExternalLinks a {
+  font-size: 0.78rem !important;
+  padding: 0.36em 0.9em 0.4em !important;
+  margin: 0 0.4rem 0.45rem 0 !important;
+  border-radius: 999px;
+  line-height: 1.25;
+  color: #cfeefd !important;
+  font-weight: 500;
+  text-decoration: none !important;
+  background-color: rgb(var(--nf-blue) / 0.1) !important;
+  background-image: linear-gradient(90deg, rgb(var(--nf-cyan)), rgb(var(--nf-violet))) !important;
+  background-repeat: no-repeat !important;
+  background-position: 50% calc(100% - 3px) !important;
+  background-size: 0% 1.5px !important;
+  border: 1px solid rgb(var(--nf-cyan) / 0.2);
+  transition: color 0.45s var(--nf-suave), background-color 0.5s var(--nf-suave), background-size 0.6s var(--nf-suave), border-color 0.5s var(--nf-suave), box-shadow 0.5s var(--nf-suave), transform 0.5s var(--nf-suave) !important;
+}
+
+.itemTags a:hover,
+.itemExternalLinks a:hover {
+  color: #fff !important;
+  text-decoration: none !important;
+  background-color: rgb(var(--nf-blue) / 0.22) !important;
+  background-size: calc(100% - 1.8em) 1.5px !important;
+  border-color: rgb(var(--nf-cyan) / 0.55);
+  box-shadow: 0 0 18px -4px rgb(var(--nf-cyan) / 0.6), inset 0 0 14px rgb(var(--nf-violet) / 0.14);
+  transform: translateY(-2px);
+}
+
+.itemTags a:nth-of-type(n + 13) {
+  display: none;
+}
+
+.itemDetailsGroup .label,
+.detailsGroupItem .label {
+  color: var(--nf-texto-3);
+  font-size: 0.72rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.itemDetailsGroup a,
+.itemDetailPage .nameContainer a {
+  color: var(--nf-texto) !important;
+  text-decoration: none !important;
+  background-image: linear-gradient(90deg, rgb(var(--nf-cyan)), rgb(var(--nf-violet))) !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 100% !important;
+  background-size: 0% 1.5px !important;
+  padding-bottom: 2px !important;
+  transition: color 0.45s var(--nf-suave), background-size 0.6s var(--nf-suave) !important;
+}
+
+.itemDetailsGroup a:hover,
+.itemDetailPage .nameContainer a:hover {
+  color: #fff !important;
+  background-size: 100% 1.5px !important;
+}
+
+.mainDetailButtons .detailButton {
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 12px 28px -16px rgba(0, 0, 0, 0.95);
+  transition: background-color 0.5s var(--nf-suave), box-shadow 0.5s var(--nf-suave), transform 0.55s var(--nf-suave), border-color 0.5s var(--nf-suave), color 0.45s var(--nf-suave);
+}
+
+.mainDetailButtons .detailButton:hover {
+  background: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.95), 0 0 0 4px rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.mainDetailButtons .detailButton .detailButton-icon {
+  transition: transform 0.55s var(--nf-muelle), color 0.45s var(--nf-suave);
+}
+
+.mainDetailButtons .detailButton:not(.btnPlay):hover .detailButton-icon {
+  color: var(--nf-azul-neon);
+}
+
+/* The light sweep is a background layer, so the button needs no overflow: hidden
+   and the ripple ring can grow outside it. */
+.mainDetailButtons .btnPlay {
+  --nf-brillo: linear-gradient(100deg, transparent 42%, rgba(255, 255, 255, 0.5) 50%, transparent 58%) 100% 0 / 250% 100% no-repeat;
+  background: var(--nf-brillo), var(--nf-degradado);
+  border: none !important;
+  color: #fff !important;
+  font-weight: 700;
+  box-shadow: 0 14px 34px -14px rgb(var(--nf-blue) / 0.95), 0 0 26px -8px rgb(var(--nf-violet) / 0.7) !important;
+  animation: nf-play-brillo 3.6s ease-in-out infinite;
+}
+
+.mainDetailButtons .btnPlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 0 0 1.5px rgb(var(--nf-cyan) / 0.75), 0 0 18px rgb(var(--nf-cyan) / 0.45);
+  opacity: 0;
+  animation: nf-play-onda 3.6s ease-out infinite;
+}
+
+.mainDetailButtons .btnPlay:hover {
+  background: var(--nf-brillo), var(--nf-degradado);
+  filter: brightness(1.1) saturate(1.1);
+  box-shadow: 0 18px 40px -14px rgb(var(--nf-cyan) / 0.85), 0 0 34px -6px rgb(var(--nf-violet) / 0.8) !important;
+}
+
+.mainDetailButtons .btnPlay:hover .detailButton-icon {
+  transform: translateX(2px) scale(1.1);
+}
+
+.mainDetailButtons .playstatebutton-played {
+  background: rgb(var(--nf-cyan) / 0.16);
+  border-color: rgb(var(--nf-cyan) / 0.5);
+}
+
+.mainDetailButtons .playstatebutton-played .detailButton-icon {
+  color: var(--nf-azul-neon);
+}
+
+.mainDetailButtons .ratingbutton-withrating {
+  background: rgba(255, 79, 123, 0.14);
+  border-color: rgba(255, 79, 123, 0.5);
+}
+
+.mainDetailButtons .ratingbutton-withrating .detailButton-icon {
+  color: #ff5a86 !important;
+}
+
+.detailButton-content {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.detailButton-icon,
+.detailButton .material-icons {
+  font-size: 1.45em;
+}
+
+.personCard .cardScalable,
+.personCard .cardImageContainer {
+  border-radius: 18px !important;
+}
+
+.listItem {
+  border-radius: 16px;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--nf-curva);
+}
+
+.listItemImage {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.itemDetailPage #childrenContent .listItem {
+  margin: 0 0 0.8rem;
+  padding: 0.6rem !important;
+  border-radius: 18px;
+  background: rgba(10, 12, 22, 0.5);
+  border: 1px solid var(--nf-linea);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.itemDetailPage #childrenContent .listItem:hover {
+  background: rgba(14, 17, 32, 0.72);
+  border-color: rgb(var(--nf-cyan) / 0.45);
+  box-shadow: 0 0 32px -12px rgb(var(--nf-cyan) / 0.55);
+  transform: translateY(-2px);
+}
+
+.itemDetailPage #childrenContent .listItemImage-large {
+  width: clamp(180px, 15vw, 290px) !important;
+  height: calc(clamp(180px, 15vw, 290px) * 0.5625) !important;
+  margin-right: 1.1rem !important;
+}
+
+.itemDetailPage #childrenContent .listItemBody > .listItemBodyText:first-child {
+  font-family: var(--nf-letra-titulos);
+  font-size: 1.12rem;
+  font-weight: 600;
+}
+
+.itemDetailPage #childrenContent .listItem-overview {
+  color: var(--nf-texto-2);
+}
+
+.listItemImageButton {
+  background: var(--nf-degradado) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 22px -6px rgb(var(--nf-blue) / 0.9);
+  transition: opacity 0.3s, transform 0.3s var(--nf-curva);
+}
+
+@media (hover: hover) {
+  .itemDetailPage #childrenContent .listItemImageButton {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .itemDetailPage #childrenContent .listItem:hover .listItemImageButton {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.detailImageContainer .card .cardScalable,
+.detailImageContainer .card .cardImageContainer,
+.detailImageContainer .card .cardContent {
+  border-radius: var(--nf-radio-grande) !important;
+}
+
+.detailImageContainer .card .cardScalable {
+  box-shadow: 0 40px 80px -28px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 60px -12px rgb(var(--nf-blue) / 0.45) !important;
+}
+
+.detailImageContainer .card .cardScalable::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.24) 46%, rgba(255, 255, 255, 0.06) 54%, transparent 70%);
+  transform: translateX(-140%);
+  animation: nf-destello 8s ease-in-out 2.2s infinite;
+}
+
+@media (min-width: 1000px) {
+  .layout-desktop .itemDetailPage {
+    --nf-izq: max(4.2vw, 40px);
+    --nf-hueco: clamp(190px, 33vh, 360px);
+    --nf-logo-alto: min(9.5rem, calc(var(--nf-hueco) - 9vh));
+    --nf-columna: 46rem;
+  }
+
+  .layout-desktop body:has(.backgroundContainer:not(.withBackdrop)) .itemDetailPage:not(:has(> .itemBackdrop[style*="url"])) {
+    --nf-hueco: 4rem;
+  }
+
+  .layout-desktop body:has(.itemDetailPage:not(.hide)) .backgroundContainer.withBackdrop {
+    background:
+      linear-gradient(90deg, rgb(var(--nf-night) / 0.96) 0%, rgb(var(--nf-night) / 0.8) 26%, rgb(var(--nf-night) / 0.32) 56%, rgb(var(--nf-night) / 0.1) 76%, rgb(var(--nf-night) / 0.5) 100%),
+      linear-gradient(180deg, rgb(var(--nf-night) / 0.45) 0%, rgb(var(--nf-night) / 0) 20%, rgb(var(--nf-night) / 0.2) 55%, rgb(var(--nf-night) / 0.92) 100%) !important;
+  }
+
+  .layout-desktop body:has(.itemDetailPage:not(.hide)) .backdropContainer {
+    overflow: hidden;
+  }
+
+  .layout-desktop body:has(.itemDetailPage:not(.hide)) .backdropImage {
+    transform-origin: 68% 32%;
+    animation: nf-kenburns 42s ease-in-out infinite alternate;
+  }
+
+  .layout-desktop .itemDetailPage .itemBackdrop {
+    height: var(--nf-hueco) !important;
+  }
+
+  .layout-desktop .itemDetailPage .itemBackdrop {
+    -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 50%, transparent 100%);
+  }
+
+  .layout-desktop .itemDetailPage .itemBackdrop::after {
+    display: none;
+  }
+
+  .layout-desktop .itemDetailPage .detailLogo {
+    left: var(--nf-izq) !important;
+    right: auto !important;
+
+    /* Measured from the page, which already starts below the bar. */
+    top: calc(var(--nf-hueco) - var(--nf-logo-alto) - 18px) !important;
+    width: min(30rem, 36vw) !important;
+    height: var(--nf-logo-alto) !important;
+    background-position: left bottom !important;
+    z-index: 3;
+  }
+
+  /* Jellyfin hides the logo below 1100 px; here it fits. */
+  .layout-desktop .itemDetailPage .detailLogo:not(.hide) {
+    display: block !important;
+  }
+
+  .layout-desktop .itemDetailPage:has(> .detailLogo:not(.hide)) .nameContainer > h1 {
+    display: none;
+  }
+
+  .layout-desktop .itemDetailPage .detailPageWrapperContainer {
+    background: linear-gradient(180deg, rgb(var(--nf-night) / 0) 0, rgb(var(--nf-night) / 0.3) 16rem, rgb(var(--nf-night) / 0.85) 34rem, var(--nf-noche) 50rem) !important;
+  }
+
+  .layout-desktop .itemDetailPage .detailPagePrimaryContainer {
+    box-sizing: border-box;
+    padding: 0 var(--nf-izq) 2.6rem var(--nf-izq) !important;
+  }
+
+  .layout-desktop .itemDetailPage .detailRibbon {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: var(--nf-columna);
+    background: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  .layout-desktop .itemDetailPage .detailRibbon .infoWrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .nameContainer h1.itemName,
+  .layout-desktop .itemDetailPage .nameContainer h1.parentName {
+    margin: 0 0 0.3rem !important;
+    font-size: clamp(2.2rem, 3.4vw, 3.6rem) !important;
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    word-spacing: 0.06em;
+    white-space: normal;
+    overflow: visible;
+    text-shadow: 0 4px 32px rgba(0, 0, 0, 0.7);
+  }
+
+  .layout-desktop .itemDetailPage .nameContainer a.button-link {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Jellyfin sets margin-left: -1em and padding-left: 1em; both go, or an indent stays. */
+  .layout-desktop .itemDetailPage .nameContainer h3.itemName {
+    padding: 0 !important;
+    margin: 0.2rem 0 0.3rem !important;
+    font-size: clamp(1.3rem, 1.9vw, 1.9rem) !important;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+    white-space: normal;
+    text-shadow: 0 3px 24px rgba(0, 0, 0, 0.7);
+  }
+
+  .layout-desktop .itemDetailPage .nameContainer h4.originalTitle {
+    margin: 0.3rem 0 0.2rem !important;
+    font-family: var(--nf-letra);
+    font-size: 0.86rem !important;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--nf-texto-2);
+    white-space: normal;
+  }
+
+  .layout-desktop .itemDetailPage .itemMiscInfo-primary {
+    margin: 0.9rem 0 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .mainDetailButtons {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.7rem;
+    margin: 1.5rem 0 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .mainDetailButtons .detailButton {
+    width: 3.3rem;
+    height: 3.3rem;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .mainDetailButtons .btnPlay,
+  .layout-desktop .itemDetailPage .mainDetailButtons .btnPlayTrailer {
+    width: auto;
+    padding: 0 1.6rem 0 1.2rem !important;
+  }
+
+  .layout-desktop .itemDetailPage .mainDetailButtons .btnPlay .detailButton-content::after,
+  .layout-desktop .itemDetailPage .mainDetailButtons .btnPlayTrailer .detailButton-content::after {
+    font: 600 1rem/1 var(--nf-letra);
+    letter-spacing: 0.01em;
+    margin-left: 0.55rem;
+  }
+
+  .layout-desktop .itemDetailPage .mainDetailButtons .btnPlay .detailButton-content::after {
+    font-weight: 700;
+  }
+
+  .layout-desktop .itemDetailPage .mainDetailButtons .btnPlay .detailButton-content::after {
+    content: var(--nf-label-play);
+  }
+
+  .layout-desktop .itemDetailPage .mainDetailButtons .btnPlayTrailer .detailButton-content::after {
+    content: var(--nf-label-trailer);
+  }
+
+  .layout-desktop .itemDetailPage .mainDetailButtons .btnPlay:hover {
+    transform: translateY(-2px);
+  }
+
+  .layout-desktop .itemDetailPage .detailImageContainer.hide-mobile {
+    display: none !important;
+  }
+
+  .layout-desktop .itemDetailPage .detailPagePrimaryContent {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .detailSection {
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .detailSection > * {
+    order: 4;
+  }
+
+  .layout-desktop .itemDetailPage .detailSection > .detailSectionContent {
+    order: 1;
+    max-width: var(--nf-columna);
+  }
+
+  .layout-desktop .itemDetailPage .detailSection > .trackSelections {
+    order: 2;
+  }
+
+  .layout-desktop .itemDetailPage .detailSection > .itemDetailsGroup {
+    order: 3;
+  }
+
+  .layout-desktop .itemDetailPage .tagline {
+    margin: 1.6rem 0 0.5rem;
+    font-size: 1.22rem;
+  }
+
+  .layout-desktop .itemDetailPage .overview {
+    font-size: 1.02rem;
+    margin: 0.6rem 0 0;
+  }
+
+  .layout-desktop .itemDetailPage .itemTags:not(.hide) {
+    margin: 1.3rem 0 0.2rem !important;
+  }
+
+  .layout-desktop .itemDetailPage .itemExternalLinks:not(.hide) {
+    margin: 0.7rem 0 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .trackSelections,
+  .layout-desktop .itemDetailPage .itemDetailsGroup:has(.detailsGroupItem) {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--nf-columna);
+    margin: 1.4rem 0 0 !important;
+    padding: 0.9rem 1.2rem !important;
+    border-radius: 18px;
+    background: rgba(10, 12, 22, 0.55);
+    border: 1px solid var(--nf-linea);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+  }
+
+  .layout-desktop .itemDetailPage .trackSelections .selectContainer {
+    max-width: none !important;
+    margin: 0.3rem 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .itemDetailsGroup .detailsGroupItem {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+  }
+
+  .layout-desktop .itemDetailPage .itemDetailsGroup .detailsGroupItem .label {
+    flex: 0 0 8.5rem;
+    margin: 0 !important;
+  }
+
+  .layout-desktop .itemDetailPage .itemDetailsGroup > div:last-child .detailsGroupItem {
+    border-bottom: none;
+  }
+
+  .layout-desktop .itemDetailPage .detailPageSecondaryContainer {
+    padding-left: var(--nf-izq) !important;
+  }
+
+  .layout-desktop .itemDetailPage:not(.hide) .detailLogo {
+    animation: nf-entra-logo 1.2s var(--nf-curva) 0.05s both;
+  }
+
+  .layout-desktop .itemDetailPage:not(.hide) .nameContainer {
+    animation: nf-sube 0.9s var(--nf-curva) 0.15s both;
+  }
+
+  .layout-desktop .itemDetailPage:not(.hide) .itemMiscInfo-primary {
+    animation: nf-sube 0.9s var(--nf-curva) 0.25s both;
+  }
+
+  .layout-desktop .itemDetailPage:not(.hide) .mainDetailButtons {
+    animation: nf-sube 0.9s var(--nf-curva) 0.35s both;
+  }
+
+  .layout-desktop .itemDetailPage:not(.hide) .detailSectionContent {
+    animation: nf-sube 0.9s var(--nf-curva) 0.45s both;
+  }
+
+  .layout-desktop .itemDetailPage:not(.hide) .trackSelections {
+    animation: nf-sube 0.9s var(--nf-curva) 0.55s both;
+  }
+
+  .layout-desktop .itemDetailPage:not(.hide) .itemDetailsGroup {
+    animation: nf-sube 0.9s var(--nf-curva) 0.65s both;
+  }
+
+  .layout-desktop .itemDetailPage:not(.hide) .detailPageSecondaryContainer {
+    animation: nf-sube 1s var(--nf-curva) 0.75s both;
+  }
+}
+
+.layout-mobile .itemDetailPage:not(.hide) .detailRibbon {
+  animation: nf-sube 0.8s var(--nf-curva) 0.1s both;
+}
+
+.layout-mobile .itemDetailPage:not(.hide) .detailPagePrimaryContent {
+  animation: nf-sube 0.8s var(--nf-curva) 0.25s both;
+}
+
+.layout-mobile .itemDetailPage .detailRibbon {
+  background: linear-gradient(180deg, rgb(var(--nf-night) / 0.2), rgb(var(--nf-night) / 0.85)) !important;
+}
+
+.layout-mobile .itemDetailPage .mainDetailButtons .btnPlay {
+  transform: scale(1.08);
+}
+
+.layout-mobile .itemDetailPage .itemMiscInfo-primary {
+  justify-content: center;
+}
+
+.layout-mobile .itemDetailPage .itemMiscInfo-primary .mediaInfoItem {
+  font-size: 0.8rem;
+}
+
+.layout-mobile .detailPageWrapperContainer {
+  background: var(--nf-noche) !important;
+}
+
+#loginPage > .padded-bottom-page {
+  box-sizing: border-box;
+  width: min(460px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 2.4rem 2.2rem 1.8rem !important;
+  border-radius: 26px;
+  background: rgba(10, 12, 22, 0.66);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid var(--nf-linea-fuerte);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.95), 0 0 0 1px rgb(var(--nf-cyan) / 0.12), 0 0 80px -30px rgb(var(--nf-violet) / 0.55);
+}
+
+#loginPage .manualLoginForm,
+#loginPage .readOnlyContent {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+@container not style(--nf-logo: none) {
+  #loginPage .manualLoginForm::before {
+    content: "";
+    display: block;
+    height: 92px;
+    margin: 0 auto 0.6rem;
+    background: var(--nf-logo) center / contain no-repeat;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 10px rgb(var(--nf-cyan) / 0.95)) drop-shadow(0 0 26px rgb(var(--nf-violet) / 0.7));
+    animation: nf-neon-encendido 2.2s ease-out 0.3s 1 both, nf-neon-parpadeo 11s linear 3s infinite;
+  }
+
+  body:has(#loginPage:not(.hide)) .MuiAppBar-root .MuiToolbar-root > .MuiStack-root > a:first-child {
+    visibility: hidden;
+  }
+}
+
+#loginPage h1.sectionTitle {
+  font-family: var(--nf-letra);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nf-texto-2);
+}
+
+#loginPage .inputLabel {
+  color: var(--nf-texto-2);
+}
+
+#loginPage .emby-input {
+  height: 2.9em;
+  padding: 0 0.9em;
+}
+
+#loginPage .readOnlyContent .raised.cancel {
+  background: transparent;
+  border-color: transparent;
+  color: var(--nf-texto-2);
+  box-shadow: none;
+}
+
+#loginPage .readOnlyContent .raised.cancel:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body:has(#loginPage:not(.hide)) .MuiAppBar-root {
+  background: transparent !important;
+  border-color: transparent;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+body:has(#loginPage:not(.hide)) .MuiAppBar-root .MuiToolbar-root::before {
+  display: none;
+}
+
+#loginPage .readOnlyContent {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+#loginPage .loginDisclaimerContainer:has(.loginDisclaimer:empty) {
+  display: none;
+}
+
+body:has(#loginPage:not(.hide)) .backgroundContainer {
+  background:
+    radial-gradient(70% 60% at 50% 45%, rgb(var(--nf-night) / 0.35), rgb(var(--nf-night) / 0.88) 100%),
+    linear-gradient(135deg, rgb(var(--nf-blue) / 0.32), rgb(var(--nf-purple) / 0.5)) !important;
+}
+
+.alphaPickerButton {
+  border-radius: 6px;
+  color: var(--nf-texto-3);
+}
+
+.alphaPickerButton:hover,
+.alphaPickerButton-selected {
+  color: var(--nf-azul-neon) !important;
+  background: rgb(var(--nf-cyan) / 0.1) !important;
+}
+
+.emby-slider-background-lower,
+.mdl-slider-background-lower {
+  background: var(--nf-degradado) !important;
+}
+
+.mdl-slider::-webkit-slider-thumb {
+  background: #fff !important;
+  box-shadow: 0 0 0 4px rgb(var(--nf-cyan) / 0.35), 0 0 14px rgb(var(--nf-cyan) / 0.9);
+}
+
+.itemsContainer > .card {
+  animation: nf-aparece 0.7s var(--nf-curva) both;
+}
+
+.itemsContainer > .card:nth-child(2) { animation-delay: 0.04s; }
+.itemsContainer > .card:nth-child(3) { animation-delay: 0.08s; }
+.itemsContainer > .card:nth-child(4) { animation-delay: 0.12s; }
+.itemsContainer > .card:nth-child(5) { animation-delay: 0.16s; }
+.itemsContainer > .card:nth-child(6) { animation-delay: 0.2s; }
+.itemsContainer > .card:nth-child(7) { animation-delay: 0.24s; }
+.itemsContainer > .card:nth-child(8) { animation-delay: 0.28s; }
+.itemsContainer > .card:nth-child(9) { animation-delay: 0.32s; }
+.itemsContainer > .card:nth-child(10) { animation-delay: 0.36s; }
+.itemsContainer > .card:nth-child(n + 11) { animation-delay: 0.4s; }
+
+.backgroundContainer {
+  overflow: hidden;
+}
+
+.backgroundContainer::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 30% at 22% 28%, rgb(var(--nf-blue) / 0.16), transparent 70%),
+    radial-gradient(34% 28% at 78% 22%, rgb(var(--nf-violet) / 0.14), transparent 70%),
+    radial-gradient(40% 32% at 60% 82%, rgb(var(--nf-purple) / 0.3), transparent 70%);
+}
+
+.backgroundContainer.withBackdrop::before {
+  display: none;
+}
+
+@media (hover: hover) {
+  .backgroundContainer::before {
+    animation: nf-aurora 34s ease-in-out infinite alternate;
+  }
+}
+
+@media (hover: hover) {
+  .card-hoverable .cardScalable::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.2) 47%, rgba(255, 255, 255, 0.06) 54%, transparent 68%);
+    transform: translateX(-140%);
+    transition: transform 1.2s var(--nf-suave);
+  }
+
+  .card-hoverable:hover .cardScalable::after {
+    transform: translateX(140%);
+  }
+}
+
+body:has(#loginPage:not(.hide)) .backdropContainer {
+  overflow: hidden;
+}
+
+body:has(#loginPage:not(.hide)) .backdropImage {
+  animation: nf-mosaico 70s ease-in-out infinite alternate;
+}
+
+#loginPage:not(.hide) > .padded-bottom-page {
+  animation: nf-tarjeta 1.1s var(--nf-curva) 0.1s both;
+}
+
+@keyframes nf-neon-encendido {
+  0% { opacity: 0; }
+  6% { opacity: 0.9; }
+  9% { opacity: 0.15; }
+  14% { opacity: 1; }
+  18% { opacity: 0.35; }
+  24% { opacity: 1; }
+  31% { opacity: 0.6; }
+  36%, 100% { opacity: 1; }
+}
+
+@keyframes nf-neon-parpadeo {
+  0%, 88%, 100% { opacity: 1; }
+  89% { opacity: 0.55; }
+  90% { opacity: 1; }
+  91.5% { opacity: 0.7; }
+  92.5% { opacity: 1; }
+}
+
+@keyframes nf-aparece {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes nf-sube {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes nf-entra-logo {
+  from { opacity: 0; transform: translateY(18px) scale(0.96); filter: blur(10px) drop-shadow(0 6px 26px rgba(0, 0, 0, 0.85)); }
+  to { opacity: 1; transform: none; filter: blur(0) drop-shadow(0 6px 26px rgba(0, 0, 0, 0.85)); }
+}
+
+@keyframes nf-poster-entra {
+  from { opacity: 0; transform: translateY(40px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes nf-flota {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes nf-destello {
+  0%, 72% { transform: translateX(-140%); }
+  88%, 100% { transform: translateX(140%); }
+}
+
+@keyframes nf-kenburns {
+  from { transform: scale(1.03) translate3d(0, 0, 0); }
+  to { transform: scale(1.15) translate3d(-1.8%, 1.2%, 0); }
+}
+
+@keyframes nf-linea {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+@keyframes nf-mosaico {
+  from { transform: scale(1.12) translate3d(2%, 1.5%, 0); }
+  to { transform: scale(1.12) translate3d(-2%, -1.5%, 0); }
+}
+
+@keyframes nf-aurora {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(4%, -3%, 0) rotate(8deg) scale(1.08); }
+  100% { transform: translate3d(-4%, 3%, 0) rotate(-6deg) scale(1.04); }
+}
+
+@keyframes nf-aurora-barra {
+  from { transform: translate3d(-7%, 0, 0); }
+  to { transform: translate3d(7%, 0, 0); }
+}
+
+@keyframes nf-play-brillo {
+  0%, 52% { background-position: 100% 0, 0 0; }
+  86%, 100% { background-position: 0% 0, 0 0; }
+}
+
+@keyframes nf-play-onda {
+  0%, 42% { inset: 0; opacity: 0; }
+  52% { opacity: 0.9; }
+  100% { inset: -12px; opacity: 0; }
+}
+
+@keyframes nf-tarjeta {
+  from { opacity: 0; transform: translateY(26px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Shortened, not removed: Jellyfin waits for a dialog's closing animation to end
+   before removing it, so with `animation: none` menus never close. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0s !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .MuiAppBar-root .MuiToolbar-root > .MuiStack-root > a:first-child {
+    margin-right: 6px;
+  }
+
+  @container not style(--nf-logo: none) {
+    .MuiAppBar-root .MuiToolbar-root > .MuiStack-root > a:first-child {
+      width: 88px;
+      min-width: 88px;
+    }
+  }
+
+  .MuiAppBar-root .MuiStack-root > a:not(:first-child) {
+    padding: 5px 9px !important;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 599px) {
+  :root,
+  :root[data-theme] {
+    --nf-radio: 11px;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child {
+    min-height: 68px !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .MuiAppBar-root.MuiAppBar-colorDefault {
+    --nf-sube: -6px;
+    --nf-mengua: 0.88;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root:not(:has(.MuiAvatar-root)) {
+    box-sizing: border-box;
+    height: 40px;
+    gap: 0;
+    padding: 0;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root:not(:has(.MuiAvatar-root)) > .MuiIconButton-root {
+    width: 38px;
+    height: 38px;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root:not(:has(.MuiAvatar-root)) > .MuiIconButton-root::before {
+    inset: 3px;
+    border-radius: 999px;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root:has(.MuiAvatar-root) {
+    margin-left: 10px;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:first-child > .MuiBox-root > .MuiIconButton-root:has(.MuiAvatar-root) {
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(12, 14, 26, 0.8) !important;
+    border: 1px solid var(--nf-linea-fuerte);
+    -webkit-backdrop-filter: blur(20px) saturate(115%);
+    backdrop-filter: blur(20px) saturate(115%);
+    box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+
+  .MuiAppBar-root .MuiIconButton-root > .MuiAvatar-root {
+    width: 28px;
+    height: 28px;
+    box-shadow: none;
+  }
+
+  .MuiAppBar-root .MuiIconButton-root > .MuiAvatar-root > svg {
+    width: 70%;
+    height: 70%;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) {
+    --nf-fila2: 34px;
+    --nf-titulo2: 1rem;
+    flex-wrap: nowrap !important;
+    gap: 6px;
+  }
+
+  .MuiAppBar-root.MuiAppBar-colorDefault > .MuiToolbar-root:nth-child(2) {
+    --nf-fila2: 32px;
+    --nf-titulo2: 0.95rem;
+    transform: translateY(-8px);
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root {
+    flex: 0 1 auto;
+    min-width: 0;
+    padding: 0 8px 0 12px !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root > .MuiTypography-root {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiButton-root > .MuiButton-endIcon {
+    margin-left: 2px;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiBox-root {
+    flex: 0 0 auto !important;
+    width: auto !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiStack-root {
+    flex: 0 0 auto;
+    width: auto !important;
+    margin-left: auto !important;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-contained > .MuiButton-root {
+    min-width: 34px !important;
+    padding: 0 8px !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-contained > .MuiButton-root + .MuiButton-root {
+    min-width: 34px !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text {
+    gap: 0;
+    padding: 0 2px;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiButtonGroup-text > .MuiButton-root {
+    min-width: 28px !important;
+    padding: 0 4px !important;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiSvgIcon-root {
+    font-size: 1.15rem;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiChip-root {
+    height: 24px;
+  }
+
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) .MuiChip-label {
+    padding: 0 8px !important;
+    font-size: 0.72rem;
+  }
+
+  .layout-mobile .itemDetailPage .mainDetailButtons {
+    justify-content: space-evenly;
+    gap: 8px;
+    padding: 0 0.6rem;
+  }
+
+  .mainDetailButtons .detailButton {
+    margin: 0 !important;
+  }
+
+  .trackSelections .selectContainer .detailTrackSelect {
+    font-size: 0.86rem !important;
+  }
+
+  #loginPage > .padded-bottom-page {
+    padding: 1.8rem 1.3rem 1.4rem !important;
+  }
+
+  #loginPage .manualLoginForm::before {
+    height: 74px;
+  }
+}
+
+@media (max-width: 399px) {
+  .MuiAppBar-root > .MuiToolbar-root:nth-child(2) > .MuiBox-root:has(.MuiChip-root) {
+    display: none;
+  }
+}
