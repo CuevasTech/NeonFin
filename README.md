@@ -11,8 +11,9 @@ cinematic detail pages and calm, slow hover effects. Pure CSS, one line to insta
 [![CSS only](https://img.shields.io/badge/pure-CSS-b44fd0?style=flat-square)](neonfin.css)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2ec8ff?style=flat-square)](LICENSE)
 [![jsDelivr](https://data.jsdelivr.com/v1/package/gh/CuevasTech/NeonFin/badge?style=rounded)](https://www.jsdelivr.com/package/gh/CuevasTech/NeonFin)
+[![Sponsor](https://img.shields.io/badge/sponsor-%E2%99%A5-ea4aaa?style=flat-square&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/CuevasTech)
 
-**[Install](#install)** · **[Customize](#customize)** · **[Screenshots](#screenshots)**
+**[Install](#install)** · **[Customize](#customize)** · **[Screenshots](#screenshots)** · **[Support](#support)**
 
 <img src="screenshots/detail.webp" alt="NeonFin: movie detail page" width="100%">
 
@@ -130,6 +131,12 @@ Add a `:root { … }` block **after** the `@import` line and include only the va
 
 - Jellyfin updates sometimes change the web's HTML. If something looks wrong after an update, please [open an issue](https://github.com/CuevasTech/NeonFin/issues) and mention your Jellyfin version.
 - The theme only styles the web interface. It doesn't change your library, your settings or the server.
+
+## Support
+
+NeonFin is free and will stay that way. If it makes your server look nicer and you'd like to say thanks, you can buy me a coffee through GitHub Sponsors. A star on the repo helps too.
+
+<a href="https://github.com/sponsors/CuevasTech"><img src="https://img.shields.io/badge/Sponsor_on_GitHub-%E2%99%A5-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Sponsor CuevasTech on GitHub"></a>
 
 ## License
 
