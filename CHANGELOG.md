@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.1 — 2026-11-09
+
+- Fixed: while a video was playing, the background auroras and the top bar's glass stayed on top of the picture, tinting the letterbox bars blue, violet and purple. They are now switched off during playback and come back when you leave the player.
+
 ## v1.0.0 — 2026-10-19
 
 First public release.

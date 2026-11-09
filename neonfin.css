@@ -2092,6 +2092,20 @@ body:has(#loginPage:not(.hide)) .backgroundContainer {
   }
 }
 
+/* While a video plays, Jellyfin puts it behind the page and makes the page transparent
+   (html.transparentDocument). Pseudo-elements keep their own background, so the auroras and
+   the bar's glass would sit on top of the picture. Backdrop mode on detail pages also sets
+   transparentDocument, hence the check for the video page. */
+html.transparentDocument:has(#videoOsdPage:not(.hide)) .backgroundContainer {
+  background: transparent !important;
+}
+
+html.transparentDocument:has(#videoOsdPage:not(.hide)) .backgroundContainer::before,
+html.transparentDocument:has(#videoOsdPage:not(.hide)) .MuiAppBar-root::before,
+html.transparentDocument:has(#videoOsdPage:not(.hide)) .MuiAppBar-root::after {
+  display: none !important;
+}
+
 @media (hover: hover) {
   .card-hoverable .cardScalable::after {
     content: "";
